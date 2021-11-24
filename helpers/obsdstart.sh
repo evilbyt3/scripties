@@ -9,14 +9,14 @@
 # NOTE: This script is called as a keybind by i3 
 # (see ~/.config/i3/config file)
 
-ENC_VAULT="$HOME/admin/mind_matrix"
-MOUNT_P="$HOME/admin/mounts/mind_matrix"
+ENC_VAULT="$HOME/area/mind_matrix"
+MOUNT_P="$HOME/area/mounts/mind_matrix"
 
 # Mount encrypted dir
 gocryptfs -extpass "zenity --password" "$ENC_VAULT" "$MOUNT_P"
 
 # Start obsidian and wait for it to close
-obsidian-insider &
+obsidian &
 BACK_PID=$!
 wait $BACK_PID
 

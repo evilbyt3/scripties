@@ -16,7 +16,7 @@
 #   Refactor me (later?)
 
 # Change these for your dir struct
-BASE="$HOME/archive/files"
+BASE="$HOME/res"
 MUZ_DIR="$BASE/muz"
 PIX_DIR="$BASE/pix"
 VID_DIR="$BASE/vids"
