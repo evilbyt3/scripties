@@ -42,7 +42,7 @@ function err() {
 # TODO: isn't working with playlist videos: https://www.youtube.com/watch?v=gBUKbTLyGgE&list=PL0IYNTdrSN93QXM4oKcAXPYs6byExxDPm&index=38
 function handle_yt() {
 
-  opt=$(echo "aud|vid|thumb|playlist|all" | rofi -dmenu -sep "|" -p "Select type (default = aud)")
+  opt=$(echo "🎧 aud|🎬 vid|🌄 thumb|🎥 playlist|all" | rofi -dmenu -sep "|" -p "Select type (default = aud)")
   case $opt in
     'vid') 
       OUT="$VID_DIR/%(title)s.%(ext)s"
