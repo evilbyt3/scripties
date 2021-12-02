@@ -6,7 +6,7 @@
 interval=0
 
 # load colors!
-. ~/.local/bin/bar/themes/onedark
+. ~/.local/bin/bar/themes/uwu
 
 cpu() {
   cpu_val=$(grep -o "^[^ ]*" /proc/loadavg)
