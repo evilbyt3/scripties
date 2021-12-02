@@ -51,7 +51,7 @@ network() {
 
 clock() {
   printf "^c$black^ ^b$darkblue^ 🕛 "
-  printf "^c$black^^b$blue^ $(date '+%I:%M %p') "
+  printf "^c$black^^b$blue^ $(date '+%a %I:%M %p') "
 }
 
 while true; do
