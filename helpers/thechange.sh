@@ -12,16 +12,18 @@
 #       - alacritty
 #       - dunst
 #       - statusbar
+#       - nvim                        
+#       - colorls
 #       TODO:
 #        - dwm                   
-#        - nvim                        
-#        - colorls
 #        - tmux
 #        - wallpaper
 
 DUNSTC="${XDG_CONFIG_HOME:-$HOME/.config}/dunst"
 ALACRC="${XDG_CONFIG_HOME:-$HOME/.config}/alacritty"
 BARC="${XDG_SCRIPTS_DIR:-$HOME/.local/bin}/bar"
+VIMC="${XDG_CONFIG_HOME:-$HOME/.config}/nvim/lua/custom"
+COLC="${XDG_CONFIG_HOME:-$HOME/.config}/colorls"
 DWMC="" # TODO:
 
 change_dunst() {
@@ -50,3 +52,11 @@ sed -i "s/colors: \*.*/colors: *$theme/g" "$ALACRC/alacritty.yml"
 sed -i "s/themes.*/themes\/$theme/g" "$BARC/bar.sh"
 pgrep bar.sh && killall -q bar.sh 
 bar.sh &
+
+# Change colorls theme
+cat "$COLC/themes/$theme" > "$COLC/dark_colors.yaml"
+
+# Change NvChad color theme
+[ "$theme" == "dracula" ] && theme="chadracula"
+sed -i "s/theme = .*/theme = \"$theme\",/g" "$VIMC/chadrc.lua"
+
