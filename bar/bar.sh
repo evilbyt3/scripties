@@ -54,9 +54,22 @@ clock() {
   printf "^c$black^^b$blue^ $(date '+%a %I:%M %p') "
 }
 
+vpn() {
+  status="^c$black^ ^b$yellow^ VPN ^b$grey^"
+  if [ -n "$(nordvpn status | cut -d: -f2 | grep Disconnected)" ]; then
+    status+="^c$yellow^ off "
+  else
+    country="$(nordvpn status | grep Country | cut -d: -f2)"
+    flag="$(cat /usr/share/rofi-emoji/all_emojis.txt | grep $country | awk '{print $1}')"
+    status+="^c$green^ $country"
+  fi
+  status+="^b$black^"
+  printf "${status}"
+}
+
 while true; do
   [ $interval = 0 ] || [ $(($interval % 3600)) = 0 ] && updates=$(pkg_updates)
   interval=$((interval + 1))
 
-  sleep 1 && xsetroot -name "$updates $(battery) $(cpu) $(mem) $(network) $(clock)"
+  sleep 1 && xsetroot -name "$(vpn) $updates $(battery) $(cpu) $(mem) $(network) $(clock)"
 done
