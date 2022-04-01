@@ -42,7 +42,8 @@ change_dunst() {
 }
 
 # Prompt user to choose theme
-theme="$(echo "uwu|dracula|cyber|nord|onedark|gruvbox" | rofi -dmenu -sep "|" -p "🎨 Choose a color theme:")"
+theme="$(echo "uwu|dracula|cyber|nord|onedark|gruvbox|exit" | rofi -dmenu -sep "|" -p "🎨 Choose a color theme:")"
+[ "$theme" == "quit" ] && exit 1
 
 # Change dunst theme
 change_dunst "$theme"

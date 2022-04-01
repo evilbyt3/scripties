@@ -1,5 +1,8 @@
 #!/bin/bash
 
+export DISPLAY=:0.0
+export $(dbus-launch) 
+
 batt_lvl=$(acpi -b | grep -P -o '[0-9]+(?=%)')
 is_charging=$(acpi -b | grep -c "Charging")
 is_full=$(acpi -b | grep -c "Full")

@@ -61,7 +61,7 @@ vpn() {
   else
     country="$(nordvpn status | grep Country | cut -d: -f2)"
     flag="$(cat /usr/share/rofi-emoji/all_emojis.txt | grep $country | awk '{print $1}')"
-    status+="^c$green^ $country"
+    status+="^c$green^ $country "
   fi
   status+="^b$black^"
   printf "${status}"

@@ -69,7 +69,7 @@ CHANNEL_ID=$(curl -sfLS "$URL" \
 
 	# copy URL to clipboard
 	echo -n "$FEED" | xclip -selection clipboard && dunstify -a "ytrss" -u low "👥 Channel ID copied to clipboard"
-	echo -n "$FEED" >> $RSSPATH
+	#echo -n "$FEED" >> $RSSPATH
 
 done
 
