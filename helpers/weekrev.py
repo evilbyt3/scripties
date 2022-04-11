@@ -32,14 +32,19 @@ def get_week_dates(curr_date=None):
     dates = [start + datetime.timedelta(days=d) for d in range(7)]
     return dates
 
+def create_tasks_table(tasks):
+    table   = []
+    for t in reversed(tasks):
+        table.append([t, t['end'].strftime("%c"), " ".join(t['tags'])])
+    return tabulate(table, headers=["Task", "Day", "Tags"], tablefmt="github")
+
+
 def parse_day(day):
     pass
-
 
 week = get_week_dates(args.date)
 for day in week:
     day_path = f"{JRNL}/days/{day}.md"
-    print(day_path)
     try:
         table_item = [f'[[{str(day)}\\|{day.strftime("%a")}]]']
 
@@ -82,17 +87,18 @@ for day in week:
 
 days_table  = tabulate(table, headers=["Day", f"Refs <sub>({trefs})</sub>", f"Rels <sub>({trels})</sub>", "Type"], tablefmt="github")
 done_tasks  = tw.tasks.filter('end.after:-8d', status="completed")
+tasks_table = create_tasks_table(done_tasks)
 summary     = '\n'.join(tw.execute_command(['summary']))
+ghistory    = '\n'.join(tw.execute_command(['ghistory.weekly']))
 
 with open("test.md", "w") as outf:
     outf.write('## Days\n')
     outf.write(days_table)
 
     outf.write('\n\n## Tasks\n')
-    for task in done_tasks:
-
-        outf.write(f"- [X] {task} ({task['project']}, {task['tags']})\n")
-    outf.write(f"\n```bash{summary}\n```")
+    outf.write(tasks_table)
+    outf.write(f"\n\n```bash{summary}\n```")
+    outf.write(f"\n```bash{ghistory}\n```")
 outf.close()
 
 
