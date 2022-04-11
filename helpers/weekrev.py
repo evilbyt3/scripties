@@ -5,6 +5,7 @@ import datetime
 import os
 import re
 import frontmatter
+import argparse
 
 
 home = os.environ['HOME']
@@ -13,12 +14,19 @@ tw           = TaskWarrior(data_location=f"{home}/.local/share/task/")
 table        = []
 trefs, trels = 0, 0
 
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    '-d', '--date',
+    type=lambda s: (datetime.datetime.strptime(s, '%Y-%m-%d')).date(),
+)
+args = parser.parse_args()
 
 
 # Get all the dates from the current
 # week based on the current date
-def get_week_dates():
-    curr_date = datetime.date.today()
+def get_week_dates(curr_date=None):
+    if not curr_date:
+        curr_date = datetime.date.today()
     weekday = curr_date.weekday()
     start = curr_date - datetime.timedelta(days=weekday)
     dates = [start + datetime.timedelta(days=d) for d in range(7)]
@@ -28,10 +36,10 @@ def parse_day(day):
     pass
 
 
-
-week = get_week_dates()
+week = get_week_dates(args.date)
 for day in week:
     day_path = f"{JRNL}/days/{day}.md"
+    print(day_path)
     try:
         table_item = [f'[[{str(day)}\\|{day.strftime("%a")}]]']
 
@@ -75,7 +83,6 @@ for day in week:
 days_table  = tabulate(table, headers=["Day", f"Refs <sub>({trefs})</sub>", f"Rels <sub>({trels})</sub>", "Type"], tablefmt="github")
 done_tasks  = tw.tasks.filter('end.after:-8d', status="completed")
 summary     = '\n'.join(tw.execute_command(['summary']))
-projects    = 
 
 with open("test.md", "w") as outf:
     outf.write('## Days\n')
@@ -86,9 +93,6 @@ with open("test.md", "w") as outf:
 
         outf.write(f"- [X] {task} ({task['project']}, {task['tags']})\n")
     outf.write(f"\n```bash{summary}\n```")
-
-
-
 outf.close()
 
 
