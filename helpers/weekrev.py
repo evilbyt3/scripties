@@ -35,7 +35,8 @@ def get_week_dates(curr_date=None):
 def create_tasks_table(tasks):
     table   = []
     for t in reversed(tasks):
-        table.append([t, t['end'].strftime("%c"), " ".join(t['tags'])])
+        tags = " ".join(t['tags'])
+        table.append([t, t['end'].strftime("%c"), " ".join([f"`{t}`" for t in tags.split()])])
     return tabulate(table, headers=["Task", "Day", "Tags"], tablefmt="github")
 
 
@@ -60,6 +61,7 @@ for day in week:
         for line in meta:
             rel, ref = line[2:-2].split("|")
             rel, ref = rel.strip(), ref.strip()
+            # TODO: handle when no rel is available (add [[]] manually if nonetype)
 
             if rel == "[[]]":
                 rels = None
