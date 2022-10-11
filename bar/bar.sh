@@ -6,7 +6,7 @@
 interval=0
 
 # load colors!
-. ~/.local/bin/bar/themes/uwu
+. ~/.local/bin/bar/themes/cyber
 
 cpu() {
   cpu_val=$(grep -o "^[^ ]*" /proc/loadavg)
