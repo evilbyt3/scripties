@@ -9,8 +9,8 @@
 # NOTE: This script is usually called as a keybind by the wm
 # (see ~/.config/i3/config file OR ~/.local/src/chadwm/config.def.h)
 
-ENC_VAULT="$HOME/area/mind_matrix"
-MOUNT_P="$HOME/area/mounts/mind_matrix"
+ENC_VAULT="$HOME/area/jrnl"
+MOUNT_P="$HOME/proj/mind_matrix/jrnl"
 
 # Mount encrypted dir
 gocryptfs -extpass "zenity --password" "$ENC_VAULT" "$MOUNT_P" || { dunstify -u critical -a "obsdstart" "😥 Couldn't decrypt vault..." && exit 1; }
